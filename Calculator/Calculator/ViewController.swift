@@ -14,7 +14,10 @@ class ViewController: UIViewController {
     var typeOfOperation = ""
     var currentInput: Double {
         get {
-            return Double(resultLabel.text!)!
+            guard let text = resultLabel.text, let resultLabelText = Double(text) else {
+                return 0
+            }
+            return resultLabelText
         }
         set {
             let value = "\(newValue)"
@@ -29,13 +32,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
 
     @IBAction private func numberPressed(_ sender: UIButton) {
-        guard let number = sender.currentTitle else {
+        guard let number = sender.currentTitle, let resultLabelText = resultLabel.text else {
             return
         }
 
         if firstDigitEntered {
-            if resultLabel.text!.count < 9 {
-                resultLabel.text = resultLabel.text! + number
+            if resultLabelText.count < 9 {
+                resultLabel.text = resultLabelText + number
             }
         } else {
             resultLabel.text = number
@@ -47,6 +50,7 @@ class ViewController: UIViewController {
         guard let senderCurrentTitle = sender.currentTitle else {
             return
         }
+
         typeOfOperation = senderCurrentTitle
         firstNumber = currentInput
         firstDigitEntered = false
@@ -91,10 +95,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction private func dotButtonPressed(_ sender: UIButton) {
-        if (resultLabel.text!.contains(".")) {
+        guard var resultLabelText = resultLabel.text else {
+            return
+        }
+
+        if resultLabelText.contains(".") {
             resultLabel.text = resultLabel.text
         } else {
-            resultLabel.text! += "."
+            resultLabelText += "."
         }
     }
 
