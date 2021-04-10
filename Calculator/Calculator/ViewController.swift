@@ -8,11 +8,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var firstDigitEntered = false
-    var firstNumber: Double = 0
-    var secondNumber: Double = 0
-    var typeOfOperation = ""
-    var currentInput: Double {
+    private var firstDigitEntered = false
+    private var firstNumber: Double = 0
+    private var secondNumber: Double = 0
+    private var typeOfOperation = ""
+    private var currentInput: Double {
         get {
             guard let text = resultLabel.text, let resultLabelText = Double(text) else {
                 return 0
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet private weak var resultLabel: UILabel!
 
     @IBAction private func numberPressed(_ sender: UIButton) {
         guard let number = sender.currentTitle, let resultLabelText = resultLabel.text else {
@@ -106,7 +106,7 @@ class ViewController: UIViewController {
         }
     }
 
-    func operationOnTwoNumbers(numbers: (Double, Double) -> Double) {
+    private func operationOnTwoNumbers(numbers: (Double, Double) -> Double) {
         currentInput = numbers(firstNumber, secondNumber)
     }
 }
