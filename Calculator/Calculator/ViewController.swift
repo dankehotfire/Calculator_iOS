@@ -20,12 +20,16 @@ class ViewController: UIViewController {
             return resultLabelText
         }
         set {
-            let value = "\(newValue)"
-            let arrayValue = value.components(separatedBy: ".")
-            if arrayValue[1] == "0" {
-                resultLabel.text = "\(arrayValue[0])"
+            if typeOfOperation == "/" && secondNumber == 0 {
+                resultLabel.text = "Not a number"
             } else {
-                resultLabel.text = "\(newValue)"
+                let value = "\(newValue)"
+                let arrayValue = value.components(separatedBy: ".")
+                if arrayValue[1] == "0" {
+                    resultLabel.text = "\(arrayValue[0])"
+                } else {
+                    resultLabel.text = "\(newValue)"
+                }
             }
         }
     }
